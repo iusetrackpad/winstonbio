@@ -386,9 +386,9 @@
     .graph-panel {
       position: fixed;
       top: 72px;
-      right: 20px;
-      width: 220px;
-      height: 220px;
+      right: 40px;
+      width: 320px;
+      height: 200px;
       background: var(--bg-2);
       border: 1px solid var(--border);
       border-radius: 10px;
@@ -843,7 +843,7 @@
 
     const svg = d3.select('#graph-svg');
     const container = document.querySelector('.graph-panel');
-    const W = 220, H = 220;
+    const W = 320, H = 200;
 
     const radii = { center: 10, main: 7, sub: 5, leaf: 4 };
 
