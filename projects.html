@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Winston Zhang — Projects</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #080d14;
+      --bg-2: #0d1520;
+      --bg-3: #131d2a;
+      --border: #1e2d40;
+      --text: #deeeff;
+      --text-muted: #5a7a9a;
+      --text-dim: #2a4060;
+      --accent: #5bb8f5;
+      --accent-dim: rgba(91, 184, 245, 0.12);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', system-ui, sans-serif;
+      font-size: 15px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── Nav ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 48px;
+      height: 60px;
+      background: rgba(8,13,20,0.85);
+      backdrop-filter: blur(16px);
+    }
+
+    .nav-logo {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 14px;
+      color: var(--text-muted);
+      letter-spacing: 0.05em;
+      text-decoration: none;
+    }
+
+    .nav-logo span { color: var(--accent); }
+
+    /* ── Sections ── */
+    section {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    #projects { max-width: 1100px; }
+
+    .page-start { padding-top: 100px; }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 20px;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 500;
+      text-decoration: none;
+      transition: all 0.2s;
+      cursor: pointer;
+      border: none;
+    }
+
+    .btn-primary { background: var(--accent); color: #fff; }
+    .btn-primary:hover { background: #7ecbf7; }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--text-muted);
+      border: 1px solid var(--border);
+    }
+
+    .btn-ghost:hover {
+      color: var(--text);
+      border-color: #333;
+      background: var(--bg-3);
+    }
+
+    /* ── Divider ── */
+    .divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 80px auto;
+      max-width: 780px;
+    }
+
+    /* ── Section heading ── */
+    .section-header {
+      display: flex;
+      align-items: baseline;
+      gap: 16px;
+      margin-bottom: 40px;
+    }
+
+    .section-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--text-dim);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .section-title {
+      font-size: 22px;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+    }
+
+    /* ── About ── */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+    }
+
+    .about-text p {
+      color: var(--text-muted);
+      margin-bottom: 16px;
+      line-height: 1.8;
+    }
+
+    .about-text p:last-child { margin-bottom: 0; }
+    .about-text strong { color: var(--text); font-weight: 500; }
+
+    .skills-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .skill-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 14px;
+      background: var(--bg-2);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+    }
+
+    .skill-name { font-size: 13px; font-weight: 500; }
+
+    .skill-tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--text-dim);
+    }
+
+    /* ── Project Tabs ── */
+    .project-tabs {
+      display: flex;
+      gap: 4px;
+      margin-bottom: 24px;
+    }
+
+    .tab-btn {
+      padding: 8px 18px;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-muted);
+      transition: all 0.2s;
+      font-family: 'Inter', system-ui, sans-serif;
+    }
+
+    .tab-btn:hover { color: var(--text); background: var(--bg-3); }
+    .tab-btn.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
+    /* ── Projects ── */
+    .projects-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .project-card {
+      background: var(--bg-2);
+      padding: 28px 32px;
+      text-decoration: none;
+      color: inherit;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: start;
+      gap: 16px;
+      transition: background 0.15s;
+      position: relative;
+    }
+
+    .project-card:hover { background: var(--bg-2); }
+
+    .project-tag-row {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 10px;
+      flex-wrap: wrap;
+    }
+
+    .tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 3px 8px;
+      border-radius: 4px;
+      background: var(--accent-dim);
+      color: var(--accent);
+      border: 1px solid rgba(91, 184, 245, 0.2);
+    }
+
+    .tag.gray {
+      background: var(--bg-3);
+      color: var(--text-dim);
+      border-color: var(--border);
+    }
+
+    .project-name { font-size: 16px; font-weight: 600; margin-bottom: 8px; letter-spacing: -0.01em; }
+    .project-desc { font-size: 14px; color: var(--text-muted); line-height: 1.7; max-width: 520px; }
+
+    .project-year {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      color: var(--text-dim);
+      white-space: nowrap;
+      padding-top: 4px;
+    }
+
+    /* ── FTC Timeline ── */
+    .timeline { position: relative; padding-left: 28px; }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 8px; bottom: 8px;
+      width: 2px;
+      background: var(--border);
+    }
+
+    .tl-team { margin-bottom: 48px; }
+    .tl-team:last-child { margin-bottom: 0; }
+
+    .tl-team-header {
+      display: flex;
+      align-items: baseline;
+      gap: 14px;
+      margin-bottom: 20px;
+      position: relative;
+    }
+
+    .tl-team-header::before {
+      content: '';
+      position: absolute;
+      left: -34px; top: 6px;
+      width: 12px; height: 12px;
+      border-radius: 50%;
+      background: var(--accent);
+      border: 2px solid var(--bg);
+      box-shadow: 0 0 0 2px var(--accent);
+    }
+
+    .tl-team-name { font-size: 16px; font-weight: 600; letter-spacing: -0.01em; }
+
+    .tl-team-role {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--accent);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .tl-team-years {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--text-dim);
+      margin-left: auto;
+    }
+
+    .tl-events { display: flex; flex-direction: column; gap: 10px; }
+
+    .tl-event {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      padding: 14px 18px;
+      background: var(--bg-2);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+    }
+
+    .tl-event-icon {
+      flex-shrink: 0;
+      margin-top: 1px;
+      width: 22px; height: 22px;
+      color: var(--accent);
+    }
+
+    .tl-event-icon svg {
+      width: 20px; height: 20px;
+      stroke: var(--accent);
+      fill: none;
+      stroke-width: 1.8;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .tl-event-title { font-size: 13px; font-weight: 500; margin-bottom: 3px; }
+    .tl-event-detail { font-size: 12px; color: var(--text-muted); line-height: 1.5; }
+
+    .tl-badge {
+      display: inline-block;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      padding: 2px 7px;
+      border-radius: 4px;
+      background: var(--accent-dim);
+      color: var(--accent);
+      border: 1px solid rgba(91, 184, 245, 0.2);
+      margin-left: 8px;
+      vertical-align: middle;
+    }
+
+    /* ── Contact ── */
+    .contact-block {
+      padding: 40px;
+      background: var(--bg-2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+    }
+
+    .contact-block p {
+      color: var(--text-muted);
+      margin-bottom: 28px;
+      max-width: 400px;
+      line-height: 1.7;
+    }
+
+    .contact-links { display: flex; gap: 12px; flex-wrap: wrap; }
+
+    /* ── Footer ── */
+    footer {
+      max-width: 780px;
+      margin: 80px auto 0;
+      padding: 32px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid var(--border);
+    }
+
+    footer span {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      color: var(--text-dim);
+    }
+
+    /* ── Fade-in ── */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+    @media (max-width: 640px) {
+      nav { padding: 0 20px; }
+      .about-grid { grid-template-columns: 1fr; }
+      .project-card { grid-template-columns: 1fr; }
+      .project-year { display: none; }
+      footer { flex-direction: column; gap: 8px; text-align: center; }
+      .contact-block { padding: 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Snow Canvas -->
+  <canvas id="snow" style="position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:9998;"></canvas>
+
+  <!-- Nav -->
+  <nav>
+    <a href="index.html" class="nav-logo">wz<span>.</span></a>
+  </nav>
+
+  <!-- About -->
+  <section id="about" class="fade-in page-start">
+    <div class="section-header">
+      <span class="section-label">01</span>
+      <h2 class="section-title">About</h2>
+    </div>
+    <div class="about-grid">
+      <div class="about-text">
+        <p>
+          I'm a junior in high school with a deep interest in <strong>engineering and technology</strong>. I enjoy designing systems from hardware to software — whether that's programming autonomous robots or exploring computer science fundamentals.
+        </p>
+        <p>
+          Through clubs like <strong>ECS</strong> and competitions like <strong>FTC robotics</strong>, I've built hands-on experience working on real engineering challenges under real constraints.
+        </p>
+        <p>
+          I'm always looking for new things to build and new problems to think through.
+        </p>
+      </div>
+      <div class="skills-list">
+        <div class="skill-row">
+          <span class="skill-name">Java / Android</span>
+          <span class="skill-tag">FTC SDK</span>
+        </div>
+        <div class="skill-row">
+          <span class="skill-name">Robotics</span>
+          <span class="skill-tag">FTC · FLL</span>
+        </div>
+        <div class="skill-row">
+          <span class="skill-name">CAD</span>
+          <span class="skill-tag">Onshape · Fusion · Solidworks</span>
+        </div>
+        <div class="skill-row">
+          <span class="skill-name">Python</span>
+          <span class="skill-tag">Scripting</span>
+        </div>
+        <div class="skill-row">
+          <span class="skill-name">Web Dev</span>
+          <span class="skill-tag">HTML · CSS · JS</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- Projects -->
+  <section id="projects" class="fade-in">
+    <div class="section-header">
+      <span class="section-label">02</span>
+      <h2 class="section-title">Projects & Passion</h2>
+    </div>
+
+    <div class="project-tabs">
+      <button class="tab-btn active" onclick="switchTab('current', this)">Current</button>
+      <button class="tab-btn" onclick="switchTab('passion', this)">Passion EC's</button>
+      <button class="tab-btn" onclick="switchTab('upcoming', this)">Upcoming</button>
+    </div>
+
+    <!-- Current Projects -->
+    <div id="tab-current" class="tab-panel active">
+      <div class="projects-grid">
+        <div class="project-card" style="cursor:default;">
+          <div>
+            <div class="project-tag-row">
+              <span class="tag">ECS</span>
+              <span class="tag gray">Engineering</span>
+            </div>
+            <div class="project-name">ECS Club Projects</div>
+            <p class="project-desc">Engineering and computer science projects through my school's ECS club. Details coming soon.</p>
+          </div>
+          <span class="project-year">2025</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Passion Tab -->
+    <div id="tab-passion" class="tab-panel">
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:1px; background:var(--border); border:1px solid var(--border); border-radius:10px; overflow:hidden;">
+
+        <!-- FTC Robot -->
+        <div class="project-card" style="cursor:default; display:block;">
+          <div style="display:flex; justify-content:space-between; align-items:start; margin-bottom:20px;">
+            <div>
+              <div class="project-tag-row">
+                <span class="tag">Robotics</span>
+                <span class="tag">Java</span>
+                <span class="tag gray">FTC</span>
+              </div>
+              <div class="project-name">FTC Competition Robot</div>
+              <p class="project-desc">Mecanum-drive robot built for the FIRST Tech Challenge. Features holonomic drive, an Axon servo-powered mechanism, and a Pedro Pathing autonomous that navigates and parks with precision.</p>
+            </div>
+            <span class="project-year">2025</span>
+          </div>
+
+          <div style="border-top: 1px solid var(--border); padding-top: 20px;">
+            <div class="timeline">
+
+              <!-- GearUp -->
+              <div class="tl-team">
+                <div class="tl-team-header">
+                  <div>
+                    <div class="tl-team-name">Team 31242 — GearUp</div>
+                    <div class="tl-team-role">Founder &amp; Mentor · Hosted at Home</div>
+                  </div>
+                  <span class="tl-team-years">2025 – Present</span>
+                </div>
+                <div class="tl-events">
+                  <div class="tl-event">
+                    <div class="tl-event-icon"><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
+                    <div>
+                      <div class="tl-event-title">Oregon States — Rookie Qualifier <span class="tl-badge">Rookie</span></div>
+                      <div class="tl-event-detail">One of only 2 rookie teams to advance to Oregon States out of 100 rookie teams formed that season.</div>
+                    </div>
+                  </div>
+                  <div class="tl-event">
+                    <div class="tl-event-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="6"/><path d="M12 14v7"/><path d="M8 21h8"/><path d="M9 2l-2 2"/><path d="M15 2l2 2"/></svg></div>
+                    <div>
+                      <div class="tl-event-title">Think Award 1st — Hillsboro Qualifier</div>
+                      <div class="tl-event-detail">Won the Think Award at the Hillsboro qualifier, recognizing our engineering documentation and design process.</div>
+                    </div>
+                  </div>
+                  <div class="tl-event">
+                    <div class="tl-event-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="6"/><path d="M12 14v7"/><path d="M8 21h8"/></svg></div>
+                    <div>
+                      <div class="tl-event-title">Think Award 2nd — Oregon States</div>
+                      <div class="tl-event-detail">Earned 2nd place Think Award at the Oregon State Championship as a first-year rookie team.</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Overcharged -->
+              <div class="tl-team">
+                <div class="tl-team-header">
+                  <div>
+                    <div class="tl-team-name">Team 12599 — Overcharged</div>
+                    <div class="tl-team-role">CAD Lead · Drive Team</div>
+                  </div>
+                  <span class="tl-team-years">2022 – 2025</span>
+                </div>
+                <div class="tl-events">
+                  <div class="tl-event">
+                    <div class="tl-event-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div>
+                    <div>
+                      <div class="tl-event-title">FIRST World Championship <span class="tl-badge">×2</span></div>
+                      <div class="tl-event-detail">Qualified and competed at the FTC World Championship twice across our seasons.</div>
+                    </div>
+                  </div>
+                  <div class="tl-event">
+                    <div class="tl-event-icon"><svg viewBox="0 0 24 24"><path d="M6 9H3V4h3"/><path d="M18 9h3V4h-3"/><path d="M6 4h12v7a6 6 0 0 1-12 0V4z"/><path d="M12 17v4"/><path d="M8 21h8"/></svg></div>
+                    <div>
+                      <div class="tl-event-title">MTI — 1st Place Winner</div>
+                      <div class="tl-event-detail">Won the Maryland Tech Invitational. Competed as part of the drive team on the field.</div>
+                    </div>
+                  </div>
+                  <div class="tl-event">
+                    <div class="tl-event-icon"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+                    <div>
+                      <div class="tl-event-title">Michiana Premier Event</div>
+                      <div class="tl-event-detail">Attended the Michiana Premier invitational event, competing against top regional teams.</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <!-- Gear Forward -->
+        <div class="project-card" style="cursor:default; display:block;">
+          <div style="display:flex; justify-content:space-between; align-items:start; margin-bottom:20px; flex-wrap:wrap; gap:12px;">
+            <div>
+              <div class="project-tag-row">
+                <span class="tag">Nonprofit</span>
+                <span class="tag">STEM</span>
+                <span class="tag gray">501(c)(3)</span>
+              </div>
+              <div class="project-name">Gear Forward</div>
+              <div style="font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--accent); margin-top:4px; margin-bottom:12px; letter-spacing:0.04em;">VP of Technology &amp; Marketing</div>
+              <p class="project-desc">A 501(c)(3) nonprofit founded in the Portland/Bethany area with the goal of educating youth in STEM and robotics. Through workshops, demos, and mentorship, Gear Forward brings hands-on STEM learning to underrepresented communities.</p>
+            </div>
+            <span class="project-year">2025–</span>
+          </div>
+
+          <div style="border-top: 1px solid var(--border); padding-top: 20px; display:grid; grid-template-columns:1fr 1fr; gap:16px;">
+            <div style="padding:16px 18px; background:var(--bg-3); border:1px solid var(--border); border-radius:8px;">
+              <div style="font-family:'JetBrains Mono',monospace; font-size:10px; text-transform:uppercase; letter-spacing:0.1em; color:var(--accent); margin-bottom:8px;">Our Mission</div>
+              <p style="font-size:13px; color:var(--text-muted); line-height:1.6;">Bring STEM opportunities to underrepresented communities and empower young children with a vision for their future in science, technology, engineering, and math.</p>
+            </div>
+            <div style="padding:16px 18px; background:var(--bg-3); border:1px solid var(--border); border-radius:8px;">
+              <div style="font-family:'JetBrains Mono',monospace; font-size:10px; text-transform:uppercase; letter-spacing:0.1em; color:var(--accent); margin-bottom:8px;">Chapters</div>
+              <p style="font-size:13px; color:var(--text-muted); line-height:1.6;">Grown to include several chapters at high schools and locations across Oregon, reaching and inspiring more students statewide.</p>
+            </div>
+          </div>
+
+          <div style="margin-top:16px; text-align:right;">
+            <a href="https://gear-forward.org" target="_blank" rel="noopener" class="btn btn-ghost" style="font-size:12px; padding:6px 14px;">gear-forward.org ↗</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Upcoming Projects -->
+    <div id="tab-upcoming" class="tab-panel">
+      <div class="projects-grid">
+        <div class="project-card" style="cursor:default;">
+          <div>
+            <div class="project-tag-row">
+              <span class="tag">CNC</span>
+              <span class="tag">Machining</span>
+              <span class="tag gray">In Progress</span>
+            </div>
+            <div class="project-name">Aluminum &amp; Carbon Fiber CNC</div>
+            <p class="project-desc">A fully functional CNC machine capable of cutting aluminum and carbon fiber. Designed from the ground up with precision motion control and a rigid frame to handle demanding materials.</p>
+          </div>
+          <span class="project-year">2025–</span>
+        </div>
+        <div class="project-card" style="cursor:default;">
+          <div>
+            <div class="project-tag-row">
+              <span class="tag">Motorsports</span>
+              <span class="tag">Mechanical</span>
+              <span class="tag gray">In Progress</span>
+            </div>
+            <div class="project-name">Mock Motorsports Car</div>
+            <p class="project-desc">A mock motorsports vehicle build exploring chassis design, suspension geometry, and performance engineering principles inspired by competitive racing.</p>
+          </div>
+          <span class="project-year">2025–</span>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <hr class="divider" />
+
+  <!-- Contact -->
+  <section id="contact" class="fade-in">
+    <div class="section-header">
+      <span class="section-label">03</span>
+      <h2 class="section-title">Contact</h2>
+    </div>
+    <div class="contact-block">
+      <p>Want to talk engineering, collaborate on a project, or just say hi? Reach out.</p>
+      <div class="contact-links">
+        <a href="https://instagram.com/winstonzng" target="_blank" rel="noopener" class="btn btn-primary">Instagram</a>
+        <a href="https://github.com/iusetrackpad" target="_blank" rel="noopener" class="btn btn-ghost">GitHub</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <span>Winston Zhang</span>
+    <span>© 2026</span>
+  </footer>
+
+  <script>
+    // Snow
+    const canvas = document.getElementById('snow');
+    const ctx = canvas.getContext('2d');
+    let flakes = [];
+
+    function resize() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    resize();
+    window.addEventListener('resize', resize);
+
+    for (let i = 0; i < 120; i++) {
+      flakes.push({
+        x: Math.random() * window.innerWidth,
+        y: Math.random() * window.innerHeight,
+        r: Math.random() * 2.5 + 0.5,
+        speed: Math.random() * 0.8 + 0.3,
+        drift: Math.random() * 0.4 - 0.2,
+        opacity: Math.random() * 0.5 + 0.2,
+      });
+    }
+
+    function drawSnow() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      flakes.forEach(f => {
+        ctx.beginPath();
+        ctx.arc(f.x, f.y, f.r, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(91, 184, 245, ${f.opacity})`;
+        ctx.fill();
+        f.y += f.speed;
+        f.x += f.drift;
+        if (f.y > canvas.height) { f.y = -f.r; f.x = Math.random() * canvas.width; }
+        if (f.x > canvas.width) f.x = 0;
+        if (f.x < 0) f.x = canvas.width;
+      });
+      requestAnimationFrame(drawSnow);
+    }
+    drawSnow();
+
+    // Scroll fade-in
+    const observer = new IntersectionObserver(
+      entries => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }),
+      { threshold: 0.1 }
+    );
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+    // Tab switching
+    function switchTab(name, btn) {
+      document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.getElementById('tab-' + name).classList.add('active');
+      btn.classList.add('active');
+    }
+  </script>
+
+</body>
+</html>
