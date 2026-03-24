@@ -217,6 +217,12 @@
 
     @media (max-width: 640px) {
       nav { padding: 0 20px; }
+      #hero { padding-top: 80px; }
+      .hero-eyebrow { font-size: 11px; margin-bottom: 14px; }
+      .hero-name { margin-bottom: 18px; }
+      .hero-bio { font-size: 15px; margin-bottom: 32px; }
+      .hero-typewriter { font-size: 14px; }
+      .btn { padding: 10px 16px; }
     }
   </style>
 </head>
@@ -382,6 +388,7 @@
     animateFw();
 
     function scheduleFw() {
+      if (window.innerWidth < 768) { setTimeout(scheduleFw, 4000); return; }
       launchFw();
       setTimeout(scheduleFw, Math.random() * 5000 + 3000);
     }

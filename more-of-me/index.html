@@ -405,12 +405,31 @@
     .fade-in.visible { opacity: 1; transform: translateY(0); }
 
     @media (max-width: 640px) {
-      nav { padding: 0 20px; }
-      .about-grid { grid-template-columns: 1fr; }
-      .project-card { grid-template-columns: 1fr; }
+      nav { padding: 0 16px; }
+      .page-start { padding-top: 80px; }
+      section { padding: 0 16px; }
+      .divider { margin: 48px auto; }
+
+      .about-grid { grid-template-columns: 1fr; gap: 24px; }
+      .skill-tag { font-size: 10px; max-width: 140px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+      .project-tabs { flex-wrap: wrap; gap: 6px; }
+      .tab-btn { padding: 7px 14px; font-size: 12px; }
+      .project-card { grid-template-columns: 1fr; padding: 20px 18px; }
       .project-year { display: none; }
+      .project-desc { max-width: 100%; }
+
+      .tl-team-header { flex-wrap: wrap; row-gap: 4px; }
+      .tl-team-years { margin-left: 0; width: 100%; }
+      .tl-event { gap: 10px; padding: 12px 14px; }
+
+      .contact-block { padding: 24px 20px; }
+      .contact-block p { max-width: 100%; }
+      .contact-links { flex-direction: column; }
+      .contact-links .btn { justify-content: center; }
+
       footer { flex-direction: column; gap: 8px; text-align: center; }
-      .contact-block { padding: 24px; }
+      footer { margin-top: 48px; padding: 24px 16px; }
     }
   </style>
 </head>
@@ -802,6 +821,7 @@
     animateFw();
 
     function scheduleFw() {
+      if (window.innerWidth < 768) { setTimeout(scheduleFw, 4000); return; }
       launchFw();
       setTimeout(scheduleFw, Math.random() * 5000 + 3000);
     }
