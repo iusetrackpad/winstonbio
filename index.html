@@ -93,13 +93,16 @@
       letter-spacing: -0.03em;
       line-height: 1.05;
       margin-bottom: 24px;
-      animation: bob 3s ease-in-out infinite, shimmer 4s linear infinite;
+      animation: bob 3s ease-in-out infinite;
+    }
+
+    .hero-name .shimmer-text {
       background: linear-gradient(90deg, var(--text) 20%, var(--accent) 50%, var(--text) 80%);
-      background-size: 200% auto;
+      background-size: 300% auto;
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
-      padding-right: 0.08em;
+      animation: shimmer 4s linear infinite;
     }
 
     @keyframes bob {
@@ -108,11 +111,11 @@
     }
 
     @keyframes shimmer {
-      0% { background-position: 200% center; }
-      100% { background-position: -200% center; }
+      0% { background-position: 100% center; }
+      100% { background-position: -100% center; }
     }
 
-    .hero-name .dim { -webkit-text-fill-color: var(--text-dim); }
+    .hero-name .dim { color: var(--text-dim); }
 
     .hero-typewriter {
       font-family: 'JetBrains Mono', monospace;
@@ -285,7 +288,7 @@
   <section id="hero">
     <p class="hero-eyebrow">Engineering Portfolio</p>
     <h1 class="hero-name">
-      Winston Zhang<span class="dim">.</span>
+      <span class="shimmer-text">Winston Zhang</span><span class="dim">.</span>
     </h1>
     <div class="hero-typewriter"><span id="typewriter-text"></span><span class="cursor"></span></div>
     <p class="hero-bio">
