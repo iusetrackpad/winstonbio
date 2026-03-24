@@ -417,7 +417,15 @@
 
     .node:hover circle { fill: var(--accent-dim); }
 
-    .node text { display: none; }
+    .node text {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 7px;
+      fill: var(--text-muted);
+      pointer-events: none;
+      user-select: none;
+    }
+
+    .node.center text { fill: var(--text); font-weight: 600; }
 
     .node.center text { fill: var(--text); font-weight: 600; }
 
