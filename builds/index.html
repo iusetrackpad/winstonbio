@@ -57,6 +57,12 @@
 
     .nav-right a:hover { opacity: 0.6; }
 
+    @media (max-width: 767px) {
+      .nav-left { top: 16px; left: 16px; font-size: 15px; }
+      .nav-right { top: 16px; right: 16px; gap: 16px; }
+      .nav-right a { font-size: 15px; }
+    }
+
     @media (min-width: 768px) {
       .nav-left  { top: 32px; left: 48px;  font-size: 20px; }
       .nav-right { top: 32px; right: 48px; }
@@ -70,6 +76,21 @@
   </style>
 </head>
 <body>
+
+  <div style="
+    position: fixed;
+    top: 180px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: min(640px, 80vw);
+    font-family: 'EB Garamond', Georgia, serif;
+    font-size: 18px;
+    color: #fff;
+    z-index: 10;
+    line-height: 1.7;
+  ">
+    <p>coming soon.</p>
+  </div>
 
   <a href="../index.html" class="nav-left">winston zhang</a>
 
